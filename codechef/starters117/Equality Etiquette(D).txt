@@ -1,0 +1,14 @@
+
+Seja d = abs(a-b), preciso deixar d = 0
+Para isso preciso que d seja uma soma de PA
+
+Passo 1: achar o maior n tal que n(n+1)/2 <= d
+Se n(n+1)/2 == d entao a resposta é n
+
+Passo 2
+Senão pegue n + 1 e faça uma PA de 1 até n+1, seja sum a soma dessa PA, então sum = (n+1)*(n+2)/2
+agora sabemos que sum > d, tome x = sum - d
+se x é par sempre temos uma resposta, pq podemos pegar x/2 e ao inves de somar diminuir entao sum -= x => sum = d por isso a resposta é n+1
+1 + 2 + ...+ x/2 + .. + n + 1 = sum
+1 + 2 + .... -x/2 + .... + n+1 = sum - 2*x/2 = sum - x=d
+se x é ímpar, sempre que escolhermos um num da sequencia para subtrair a paridade nao vai mudar, entao temos que pegar uma sequencia maior, então checamos o memos processo para n+2 e vemos se sum - d é par se nao for fazemos para n + 3, que com certeza vai ser par

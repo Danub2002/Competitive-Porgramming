@@ -1,0 +1,188 @@
+PROBLEM:
+You are given 
+𝐴
+,
+𝐵
+,
+A,B, and 
+𝐾
+K.
+Starting with 
+𝑥
+=
+𝐾
+x=K, you can do the following:
+
+𝑥
+→
+𝑥
++
+1
+x→x+1
+𝑥
+→
+𝐾
+⋅
+𝑥
+x→K⋅x
+Find the minimum number of moves needed to reach 
+𝑥
+=
+𝐵
+x=B.
+
+EXPLANATION:
+Let’s look at the process in reverse, i.e, starting from 
+𝐵
+B and reaching 
+𝐴
+A.
+When doing this, we also need to invert the operations.
+
+Instead of adding 
+1
+1 to 
+𝑥
+x, we can subtract 
+1
+1 from it.
+Instead of multiplying 
+𝑥
+x by 
+𝐾
+K, we can divide 
+𝑥
+x by 
+𝐾
+K, but only when 
+𝑥
+x is already a multiple of 
+𝐾
+K.
+With this setup, note that whenever 
+𝑥
+x is not a multiple of 
+𝐾
+K, the only thing we can do is to subtract 
+1
+1.
+So, let’s repeatedly subtract 
+1
+1 till a multiple of 
+𝐾
+K is reached.
+
+When 
+𝑥
+x is a multiple of 
+𝐾
+K, we have two options: either subtract 
+1
+1 (in which case 
+𝑥
+x is no longer a multiple of 
+𝐾
+K again, so we’re forced to keep subtracting till we reach the next smaller multiple), or divide by 
+𝐾
+K.
+Intuitively, it seems more useful to divide by 
+𝐾
+K, since it moves us lower ‘faster’ (as long as we don’t undershoot 
+𝐴
+A by doing so, of course).
+It turns out that this intuition is correct.
+
+ Proof
+tl;dr the following simple greedy works.
+Start with 
+𝑥
+=
+𝐵
+x=B. Then,
+
+if 
+𝑥
+x is a multiple of 
+𝐾
+K and 
+𝑥
+𝐾
+≥
+𝐴
+K
+x
+​
+ ≥A, divide 
+𝑥
+x by 
+𝐾
+K.
+If 
+𝑥
+x is a multiple of 
+𝐾
+K and 
+𝑥
+𝐾
+<
+𝐴
+K
+x
+​
+ <A, use 
+(
+𝑥
+−
+𝐴
+)
+(x−A) subtractions to reach 
+𝐴
+A.
+If 
+𝑥
+x is not a multiple of 
+𝐾
+K, use subtractions to reach either 
+𝐴
+A or the next smallest multiple of 
+𝐾
+K, whichever is closer.
+To find the next smallest multiple of 
+𝐾
+K, note that you can simply subtract 
+(
+𝑥
+ 
+mod
+ 
+𝐾
+)
+(xmodK) from 
+𝑥
+x, so this can be computed in 
+𝑂
+(
+1
+)
+O(1).
+Each division reduces 
+𝑥
+x by a factor of 
+𝐾
+K, so we’ll perform at most 
+log
+⁡
+𝐾
+𝐵
+log 
+K
+​
+ B divisions (since that will put us at 
+1
+1 already).
+Between divisions, the subtractions are simulated in 
+𝑂
+(
+1
+)
+O(1) time, so they don’t affect the time complexity.
